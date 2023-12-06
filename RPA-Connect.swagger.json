@@ -1,0 +1,1081 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "RPA Connect",
+    "description": "",
+    "version": ""
+  },
+  "host": "app.rpaconnect.io",
+  "basePath": "/",
+  "schemes": [
+    "https"
+  ],
+  "consumes": [],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/api/Attachments/GetAttachments/{formInstanceId}": {
+      "get": {
+        "summary": "List Attachments",
+        "description": "Get the list of attachments from an Attachment-type field of an instance",
+        "operationId": "RetrievesTheListOfAttachments",
+        "parameters": [
+          {
+            "name": "formInstanceId",
+            "in": "path",
+            "type": "string",
+            "required": true,
+            "x-ms-summary": "Form Instance ID"
+          },
+          {
+            "name": "stageIndex",
+            "in": "query",
+            "type": "integer",
+            "required": false,
+            "x-ms-summary": "Stage Index"
+          },
+          {
+            "name": "api-version",
+            "default": "2.0",
+            "in": "query",
+            "type": "string",
+            "required": true,
+            "x-ms-summary": "API Version"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "fieldName": {
+                    "type": "string",
+                    "description": "fieldName"
+                  },
+                  "attachmentName": {
+                    "type": "string",
+                    "description": "attachmentName"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Attachments/Download": {
+      "get": {
+        "summary": "Download Attachment",
+        "description": "Download the attachment from an Attachment-type field of an instance",
+        "operationId": "DownloadAttachment",
+        "parameters": [
+          {
+            "name": "formInstanceId",
+            "in": "query",
+            "type": "string",
+            "required": true,
+            "x-ms-summary": "Form Instance ID"
+          },
+          {
+            "name": "fieldName",
+            "in": "query",
+            "type": "string",
+            "required": true,
+            "x-ms-summary": "Field Name"
+          },
+          {
+            "name": "attachmentName",
+            "in": "query",
+            "type": "string",
+            "required": true,
+            "x-ms-summary": "Attachment Name"
+          },
+          {
+            "name": "stageIndex",
+            "in": "query",
+            "type": "integer",
+            "required": false,
+            "x-ms-summary": "Stage Index"
+          },
+          {
+            "name": "api-version",
+            "default": "2.0",
+            "in": "query",
+            "type": "string",
+            "required": true,
+            "x-ms-summary": "API Version"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "200",
+            "schema": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "/api/FormInstance": {
+      "get": {
+        "summary": "Get Instances From Form Definition",
+        "description": "Get a list of form instances based on the input query and formDefinition.",
+        "operationId": "ExecutesOdataQueryToGetInfoAboutFormInstances",
+        "parameters": [
+          {
+            "name": "formDefinitionId",
+            "in": "query",
+            "type": "string",
+            "required": true,
+            "x-ms-summary": "Form Definition ID"
+          },
+          {
+            "name": "Filter.state",
+            "default": "Confirmed",
+            "in": "query",
+            "type": "string",
+            "required": false,
+            "x-ms-summary": "State"
+          },
+          {
+            "name": "Filter.createdAtFrom",
+            "in": "query",
+            "type": "string",
+            "format": "datetime",
+            "required": false,
+            "x-ms-summary": "Created At From"
+          },
+          {
+            "name": "Filter.createdAtTo",
+            "in": "query",
+            "type": "string",
+            "format": "datetime",
+            "required": false,
+            "x-ms-summary": "Created At To"
+          },
+          {
+            "name": "Filter.lastSavedFrom",
+            "in": "query",
+            "type": "string",
+            "format": "datetime",
+            "required": false,
+            "x-ms-summary": "Last Saved From"
+          },
+          {
+            "name": "Filter.lastSavedTo",
+            "in": "query",
+            "type": "string",
+            "format": "datetime",
+            "required": false,
+            "x-ms-summary": "Last Saved To"
+          },
+          {
+            "name": "Filter.title",
+            "in": "query",
+            "type": "string",
+            "required": false,
+            "x-ms-summary": "Title"
+          },
+          {
+            "name": "Filter.tags",
+            "in": "query",
+            "type": "string",
+            "required": false,
+            "x-ms-summary": "Tags"
+          },
+          {
+            "name": "OrderByField",
+            "in": "query",
+            "type": "string",
+            "required": false,
+            "x-ms-summary": "Order By Field"
+          },
+          {
+            "name": "OrderByDirection",
+            "in": "query",
+            "type": "string",
+            "required": false,
+            "x-ms-summary": "Order By Direction"
+          },
+          {
+            "name": "MaxItemCount",
+            "in": "query",
+            "type": "integer",
+            "required": false,
+            "x-ms-summary": "Max Items Count"
+          },
+          {
+            "name": "x-form-continuation",
+            "in": "header",
+            "required": false,
+            "type": "string",
+            "description": "x-form-continuation",
+            "x-ms-summary": "Continuation Token"
+          },
+          {
+            "name": "api-version",
+            "default": "1.0",
+            "in": "query",
+            "type": "string",
+            "required": false,
+            "x-ms-summary": "API Version"
+          },
+          {
+            "name": "Accept",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "default": "application/json;odata.metadata=minimal;odata.streaming=true",
+            "description": "Accept",
+            "x-ms-visibility": "internal"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "200",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "continuationToken": {
+                  "type": "string",
+                  "description": "continuationToken"
+                },
+                "result": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string",
+                        "description": "id"
+                      },
+                      "state": {
+                        "type": "string",
+                        "description": "state"
+                      },
+                      "createdAt": {
+                        "type": "string",
+                        "description": "createdAt"
+                      },
+                      "lastSaved": {
+                        "type": "string",
+                        "description": "lastSaved"
+                      },
+                      "name": {
+                        "type": "string",
+                        "description": "name"
+                      },
+                      "title": {
+                        "type": "string",
+                        "description": "title"
+                      },
+                      "createdBy": {
+                        "type": "string",
+                        "description": "createdBy"
+                      },
+                      "updateLog": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "value": {
+                              "type": "string",
+                              "description": "value"
+                            }
+                          }
+                        },
+                        "description": "updateLog"
+                      },
+                      "processInfo": {
+                        "type": "object",
+                        "properties": {
+                          "value": {
+                            "type": "string",
+                            "description": "value"
+                          }
+                        },
+                        "description": "processInfo"
+                      }
+                    }
+                  },
+                  "description": "result"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Create Form Instance",
+        "description": "Create an instance of a form based on the formDefinition to be used and the input parameters.",
+        "operationId": "CreatesANewFormInstanceAndReturnAPublicAccessToken",
+        "parameters": [
+          {
+            "name": "api-version",
+            "default": "1.0",
+            "in": "query",
+            "type": "string",
+            "required": true,
+            "x-ms-summary": "API Version"
+          },
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "default": "application/json",
+            "description": "Content-Type",
+            "x-ms-visibility": "internal"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "formId": {
+                  "type": "string",
+                  "description": "formId",
+                  "x-ms-summary": "Form Definition ID"
+                },
+                "useExistingDraft": {
+                  "type": "boolean",
+                  "description": "useExistingDraft",
+                  "default": false,
+                  "x-ms-visibility": "internal"
+                },
+                "initialValues": {
+                  "type": "object",
+                  "properties": {},
+                  "description": "initialValues",
+                  "x-ms-summary": "Initial Values"
+                },
+                "customFormDefinition": {
+                  "type": "object",
+                  "properties": {},
+                  "description": "customFormDefinition",
+                  "x-ms-summary": "Custom Form Definition"
+                },
+                "expiresAt": {
+                  "type": "string",
+                  "format": "datetime",
+                  "description": "expiresAt",
+                  "x-ms-summary": "Token Expiring Date"
+                },
+                "userOrGroupAssigned": {
+                  "type": "string",
+                  "description": "userOrGroupAssigned",
+                  "x-ms-summary": "User or Group Assigned"
+                },
+                "notificationMessage": {
+                  "type": "string",
+                  "description": "notificationMessage",
+                  "x-ms-summary": "Notification Message"
+                }
+              }
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "200",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "sharedFormId": {
+                  "type": "string",
+                  "description": "sharedFormId",
+                  "title": "Form Instance ID"
+                },
+                "sharedFormToken": {
+                  "type": "string",
+                  "description": "sharedFormToken",
+                  "title": "Token"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/FormInstance/{formInstanceId}": {
+      "get": {
+        "summary": "Get Form Instance Response",
+        "description": "Get the response of a form instance.",
+        "operationId": "RetrievesAFormInstanceWithItsValues",
+        "parameters": [
+          {
+            "name": "api-version",
+            "default": "1.0",
+            "in": "query",
+            "type": "string",
+            "required": true,
+            "x-ms-summary": "API Version"
+          },
+          {
+            "name": "formInstanceId",
+            "in": "path",
+            "type": "string",
+            "required": true,
+            "x-ms-summary": "Form Instance ID"
+          },
+          {
+            "name": "Accept",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "default": "application/json;odata.metadata=minimal;odata.streaming=true",
+            "description": "Accept",
+            "x-ms-visibility": "internal"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "200",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "description": "id"
+                },
+                "formDefinitionId": {
+                  "type": "string",
+                  "description": "formDefinitionId"
+                },
+                "state": {
+                  "type": "string",
+                  "description": "state"
+                },
+                "lastSaved": {
+                  "type": "string",
+                  "description": "lastSaved"
+                },
+                "values": {
+                  "type": "object",
+                  "properties": {},
+                  "description": "values"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete Form Instance",
+        "description": "Delete an instance of a form.",
+        "operationId": "DeleteDraftFormInstance",
+        "parameters": [
+          {
+            "name": "formInstanceId",
+            "in": "path",
+            "type": "string",
+            "required": true,
+            "x-ms-summary": "Form Instance ID"
+          },
+          {
+            "name": "force",
+            "in": "query",
+            "type": "boolean",
+            "required": true,
+            "x-ms-summary": "Force"
+          },
+          {
+            "name": "api-version",
+            "default": "1.0",
+            "in": "query",
+            "type": "string",
+            "required": true,
+            "x-ms-summary": "API Version"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "200",
+            "schema": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "/api/FormInstance/Status/{formInstanceId}": {
+      "get": {
+        "summary": "Get Form Instance State",
+        "description": "Get the state of a form instance.",
+        "operationId": "RetrievesTheStatusStatusOfAFormInstance",
+        "parameters": [
+          {
+            "name": "api-version",
+            "default": "1.0",
+            "in": "query",
+            "type": "string",
+            "required": true,
+            "x-ms-summary": "API Version"
+          },
+          {
+            "name": "formInstanceId",
+            "in": "path",
+            "type": "string",
+            "required": true,
+            "x-ms-summary": "Form Instance ID"
+          },
+          {
+            "name": "Accept",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "default": "application/json;odata.metadata=minimal;odata.streaming=true",
+            "description": "Accept",
+            "x-ms-visibility": "internal"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "200",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "state": {
+                  "type": "string",
+                  "description": "state"
+                },
+                "lastSaved": {
+                  "type": "string",
+                  "description": "lastSaved"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/FormInstance/{formInstanceId}/AccessToken": {
+      "get": {
+        "summary": "Get Form Instance Token",
+        "description": "Get the public token of a form instance.",
+        "operationId": "RetrievesTheAccessTokenForAnExistingFormInstance",
+        "parameters": [
+          {
+            "name": "formInstanceId",
+            "in": "path",
+            "type": "string",
+            "required": true,
+            "x-ms-summary": "Form Instance ID"
+          },
+          {
+            "name": "expiresAt",
+            "in": "query",
+            "type": "string",
+            "format": "datetime",
+            "required": false,
+            "x-ms-summary": "Expires At"
+          },
+          {
+            "name": "api-version",
+            "default": "1.0",
+            "in": "query",
+            "type": "string",
+            "required": true,
+            "x-ms-summary": "API Version"
+          },
+          {
+            "name": "validationEmail",
+            "in": "query",
+            "type": "string",
+            "required": false,
+            "x-ms-summary": "Validation Email"
+          },
+          {
+            "name": "Accept",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "default": "application/json;odata.metadata=minimal;odata.streaming=true",
+            "description": "Accept",
+            "x-ms-visibility": "internal"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "200",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "sharedFormId": {
+                  "type": "string",
+                  "description": "sharedFormId"
+                },
+                "sharedFormToken": {
+                  "type": "string",
+                  "description": "sharedFormToken"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/FormInstance/{formInstanceId}/stage/{stageIndex}/AccessToken": {
+      "get": {
+        "summary": "Retrieves the access token for an existing form instance stage",
+        "description": "Retrieves the access token for an existing form instance stage",
+        "operationId": "RetrievesTheAccessTokenForAnExistingFormInstanceStage",
+        "parameters": [
+          {
+            "name": "formInstanceId",
+            "in": "path",
+            "type": "string",
+            "required": true,
+            "x-ms-summary": "Form Instance ID"
+          },
+          {
+            "name": "stageIndex",
+            "in": "path",
+            "type": "string",
+            "required": true,
+            "x-ms-summary": "Stage Index"
+          },
+          {
+            "name": "validationEmail",
+            "in": "query",
+            "type": "string",
+            "required": false,
+            "x-ms-summary": "Validation Email"
+          },
+          {
+            "name": "api-version",
+            "default": "1.0",
+            "in": "query",
+            "type": "string",
+            "required": true,
+            "x-ms-summary": "API Version"
+          },
+          {
+            "name": "Accept",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "default": "application/json;odata.metadata=minimal;odata.streaming=true",
+            "description": "Accept",
+            "x-ms-visibility": "internal"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "200",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "stageInstanceId": {
+                  "type": "string",
+                  "description": "stageInstanceId"
+                },
+                "sharedFormToken": {
+                  "type": "string",
+                  "description": "sharedFormToken"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/FormInstance/{formInstanceId}/Resource": {
+      "post": {
+        "summary": "Upload FormInstance Resource",
+        "description": "Attach a resource to a form instance.",
+        "operationId": "UploadsAResourceAttachedToAFormInstance",
+        "consumes": [
+          "multipart/form-data"
+        ],
+        "parameters": [
+          {
+            "name": "formInstanceId",
+            "x-ms-summary": "Form Instance ID",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "default": "multipart/form-data",
+            "x-ms-visibility": "internal"
+          },
+          {
+            "name": "Resource",
+            "x-ms-summary": "File",
+            "in": "formData",
+            "required": true,
+            "type": "file"
+          },
+          {
+            "name": "FieldName",
+            "x-ms-summary": "Field Name",
+            "in": "formData",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/FormInstance/{formInstanceId}/Resource/{resourceName}": {
+      "delete": {
+        "summary": "Delete FormInstance Resource",
+        "description": "Remove the attached resource from a form instance.",
+        "operationId": "DeleteAResourceAttachedToAFormInstance6",
+        "parameters": [
+          {
+            "name": "formInstanceId",
+            "in": "path",
+            "type": "string",
+            "required": true,
+            "x-ms-summary": "Form Instance ID"
+          },
+          {
+            "name": "resourceName",
+            "in": "path",
+            "type": "string",
+            "required": true,
+            "x-ms-summary": "Resource Name"
+          },
+          {
+            "name": "api-version",
+            "default": "1.0",
+            "in": "query",
+            "type": "string",
+            "required": true,
+            "x-ms-summary": "API Version"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "200",
+            "schema": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "/api/FormInstance/{formInstanceId}/stage": {
+      "post": {
+        "summary": "Create Stage",
+        "description": "Create a stage of a form instance",
+        "operationId": "CreatesAStage",
+        "parameters": [
+          {
+            "name": "formInstanceId",
+            "in": "path",
+            "type": "string",
+            "required": true,
+            "x-ms-summary": "Form Instance ID"
+          },
+          {
+            "name": "api-version",
+            "default": "1.0",
+            "in": "query",
+            "type": "string",
+            "required": true,
+            "x-ms-summary": "API Version"
+          },
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "default": "application/json",
+            "description": "Content-Type",
+            "x-ms-visibility": "internal"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "initialValues": {
+                  "type": "string",
+                  "description": "initialValues",
+                  "x-ms-summary": "Initial Values"
+                },
+                "userOrGroupAssigned": {
+                  "type": "string",
+                  "description": "userOrGroupAssigned",
+                  "x-ms-summary": "User or Group Assigned"
+                },
+                "notificationMessage": {
+                  "type": "string",
+                  "description": "notificationMessage",
+                  "x-ms-summary": "Notification Message"
+                },
+                "state": {
+                  "type": "string",
+                  "description": "state",
+                  "x-ms-summary": "State"
+                }
+              }
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "200",
+            "schema": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "/api/FormInstance/{formInstanceId}/stage/{index}": {
+      "get": {
+        "summary": "Get Stage Response",
+        "description": "Get the response of a stage of a form instance",
+        "operationId": "RetrievesAStageWithItsValues",
+        "parameters": [
+          {
+            "name": "formInstanceId",
+            "in": "path",
+            "type": "string",
+            "required": true,
+            "x-ms-summary": "Form Instance ID"
+          },
+          {
+            "name": "index",
+            "in": "path",
+            "type": "integer",
+            "required": true,
+            "x-ms-summary": "Stage Index"
+          },
+          {
+            "name": "api-version",
+            "default": "1.0",
+            "in": "query",
+            "type": "string",
+            "required": true,
+            "x-ms-summary": "API Version"
+          },
+          {
+            "name": "Accept",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "default": "application/json;odata.metadata=minimal;odata.streaming=true",
+            "description": "Accept",
+            "x-ms-visibility": "internal"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "200",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "description": "id"
+                },
+                "formDefinitionId": {
+                  "type": "string",
+                  "description": "formDefinitionId"
+                },
+                "formInstanceId": {
+                  "type": "string",
+                  "description": "formInstanceId"
+                },
+                "state": {
+                  "type": "string",
+                  "description": "state"
+                },
+                "lastSaved": {
+                  "type": "string",
+                  "description": "lastSaved"
+                },
+                "values": {
+                  "type": "object",
+                  "properties": {},
+                  "description": "values"
+                },
+                "stageName": {
+                  "type": "string",
+                  "description": "stageName"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "Update Stage",
+        "description": "Update a pre-existing stage of a form instance",
+        "operationId": "UpdateStageinstance",
+        "parameters": [
+          {
+            "name": "formInstanceId",
+            "in": "path",
+            "type": "string",
+            "required": true,
+            "x-ms-summary": "Form Instance ID"
+          },
+          {
+            "name": "index",
+            "in": "path",
+            "type": "integer",
+            "required": true,
+            "x-ms-summary": "Stage Index"
+          },
+          {
+            "name": "api-version",
+            "default": "1.0",
+            "in": "query",
+            "type": "string",
+            "required": true,
+            "x-ms-summary": "API Version"
+          },
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "default": "application/json",
+            "description": "Content-Type",
+            "x-ms-visibility": "internal"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "resetValues": {
+                  "type": "boolean",
+                  "description": "resetValues",
+                  "x-ms-summary": "Reset Values"
+                },
+                "userOrGroupAssigned": {
+                  "type": "string",
+                  "description": "userOrGroupAssigned",
+                  "x-ms-summary": "User or Group Assigned"
+                },
+                "notificationMessage": {
+                  "type": "string",
+                  "description": "notificationMessage",
+                  "x-ms-summary": "Notification Message"
+                },
+                "state": {
+                  "type": "string",
+                  "description": "state",
+                  "x-ms-summary": "State"
+                }
+              }
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "200",
+            "schema": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "/api/FormInstance/{formInstanceId}/processInfo": {
+      "post": {
+        "summary": "Set Form Instance Process Info",
+        "description": "Set the processInfo of a form instance.",
+        "operationId": "SetInstanceProcessInfo",
+        "parameters": [
+          {
+            "name": "formInstanceId",
+            "in": "path",
+            "type": "string",
+            "required": true,
+            "x-ms-summary": "Form Instance ID"
+          },
+          {
+            "name": "api-version",
+            "default": "1.0",
+            "in": "query",
+            "type": "string",
+            "required": true,
+            "x-ms-summary": "API Version"
+          },
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "default": "application/json",
+            "description": "Content-Type",
+            "x-ms-visibility": "internal"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "description": "status",
+                  "x-ms-summary": "Status"
+                },
+                "endState": {
+                  "type": "string",
+                  "description": "endState",
+                  "x-ms-summary": "End State"
+                },
+                "completionMessage": {
+                  "type": "string",
+                  "description": "completionMessage",
+                  "x-ms-summary": "Completion Message"
+                }
+              }
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "200",
+            "schema": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {},
+  "parameters": {},
+  "responses": {},
+  "securityDefinitions": {
+    "basic-auth": {
+      "type": "basic"
+    }
+  },
+  "security": [
+    {
+      "basic-auth": []
+    }
+  ],
+  "tags": []
+}
